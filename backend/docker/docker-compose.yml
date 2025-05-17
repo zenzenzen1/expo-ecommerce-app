@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    container_name: postgres_db
+    image: postgres
+    restart: always
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=123
+    ports:
+        - '5432:5432'
+    volumes:
+        - ./sql/initdb.sql:/docker-entrypoint-initdb.d/init-script.sql
+    networks:
+        - lms_network
+  mongo:
+    hostname: mongo-host
+    container_name: mongo_db
+    image: mongo
+    restart: always
+    ports:
+        - '27017:27017'
+    environment:
+        - MONGO_INITDB_ROOT_USERNAME=root
+        - MONGO_INITDB_ROOT_PASSWORD=root
+    networks:
+      - ecommerce_backend
+    
+networks:
+  ecommerce_backend:
+    driver: bridge
+
+

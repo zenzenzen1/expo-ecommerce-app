@@ -1,0 +1,13 @@
+#change to yml format
+spring:
+  application:
+    name: ecommerce
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/ecommerce_mongo_db
+server:
+  port: 8091
+  servlet:
+    context-path: /api
+  
+
