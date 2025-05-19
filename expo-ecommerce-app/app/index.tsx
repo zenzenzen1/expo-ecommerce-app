@@ -8,14 +8,21 @@ const WelcomeScreen = () => {
     useEffect(() => {
         setTimeout(() => {
             router.replace("/(tabs)");
+            // router.replace({
+            //     pathname: "/product-details/[id]",
+            //     params: {"apiPathPrefix": "saleProducts", "id": "29"}
+            // })
         }, 2000);
          
+     
+     
      
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
         <>
+        {/* <Redirect href={{pathname: "/product-details/[id]", params: {"apiPathPrefix": "saleProducts", "id": "29"}}}/> */}
         <ImageBackground 
             source={require("@/assets/images/E-commerce-App-JPG-File-scaled.jpg")}
             className="flex-1"

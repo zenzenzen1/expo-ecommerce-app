@@ -2,13 +2,12 @@ import TabBar from '@/components/tabbar/TabBar';
 import { Tabs } from "expo-router";
 import React from 'react';
 import { StatusBar } from 'react-native';
-
 export default function TabLayout() {
-    
+
     return (
         <>
-            <StatusBar barStyle={"dark-content"} backgroundColor={"#eee"}  />
-            <Tabs tabBar={(props) => <TabBar {...props}/>} screenOptions={{ headerShown: false }}>
+            <StatusBar barStyle={"dark-content"} backgroundColor={"#eee"} />
+            <Tabs tabBar={(props) => <TabBar {...props} />} screenOptions={{ headerShown: false }}>
                 <Tabs.Screen name='index' options={{
                     title: 'Home',
                 }} />
