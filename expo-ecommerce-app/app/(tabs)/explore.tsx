@@ -1,49 +1,52 @@
-import { useRouter } from 'expo-router'
-import React from 'react'
-import { ActivityIndicator, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import httpClient from '@/configs/httpClient';
+import { CategoryType } from '@/types/type';
+import { Stack, useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, FlatList, Image, Text, View } from 'react-native';
 
-type Props = {}
 
-const ExploreScreen = (props: Props) => {
-    const router = useRouter();
-  return (
-    <View style={styles.container} className=''>
-        <Pressable
-            className='bg-blue-500 p-4 rounded-md'
-            style={({pressed}) => {
-                console.log('Pressed', pressed);
-                return {
-                    backgroundColor: 'red',
-                    padding: 10,
-                    borderRadius: 5
-                }
-            }}
-            onPress={() => console.log('Pressed')}
-        >
-            <Text>Explore</Text>
-        </Pressable>
-        <TouchableOpacity
-            onPress={() => {
-                router.navigate({
-                pathname: "/product-details/[id]",
-                params: {"apiPathPrefix": "saleProducts", "id": "29"}
+const ExploreScreen = () => {
+    const [categoryies, setCategories] = useState<CategoryType[]>();
+    useEffect(() => {
+        httpClient.get("categories")
+            .then((res) => {
+                setCategories(res.data);
             })
+            .catch((err) => {
+                console.log('err', err)
+            })
+            ;
+    }, [])
+
+    const router = useRouter();
+    return (
+        <>
+            <Stack.Screen options={{
+                headerShown: true
             }}
-            style={{}}
-        >
-            <Text>Explore</Text>
-        </TouchableOpacity>
-        <ActivityIndicator />
-    </View>
-  )
+            />
+            {categoryies
+                ? (<View style={{}} className='flex-1 px-5'>
+                    <FlatList data={categoryies}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={(item) => item.id.toString()}
+                        renderItem={({ item, index }) => (
+                            <View className={`flex-1 px-5 flex-row justify-between items-center bg-extraLightGray mb-5 rounded-xl ${index === 0 ? 'mt-5' : ''}`} >
+                                <Text className='text-lg'>{item.name}</Text>
+                                <Image source={{uri: item.image}} width={100} height={100}/>
+                            </View>
+                        )}
+                    />
+                </View>)
+                : (
+                    <View>
+                        <ActivityIndicator size={"large"} color={"#000"} />
+                    </View>
+                )}
+
+        </>
+    )
 }
 
 export default ExploreScreen
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})

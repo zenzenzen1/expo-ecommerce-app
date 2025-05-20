@@ -1,22 +1,29 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Stack } from 'expo-router'
 import React from 'react'
+import { Text, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-type Props = {}
 
-const ProfileScreen = (props: Props) => {
-  return (
-    <View style={styles.container}>
-      <Text>Profile Screen</Text>
-    </View>
-  )
+const ProfileScreen = () => {
+    const insets = useSafeAreaInsets();
+    console.log('insets', insets)
+    return (
+        <>
+            <Stack.Screen options={{
+                header(props) {
+                    return (
+                        <Text>{JSON.stringify(props)}</Text>
+                    )
+                },
+            }}
+            />
+            <View className='flex-1'>
+                <Text>Profile Screen</Text>
+
+            </View>
+        </>
+    )
 }
 
 export default ProfileScreen
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-})

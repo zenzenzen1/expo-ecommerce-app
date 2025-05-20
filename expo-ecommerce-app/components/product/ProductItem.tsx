@@ -5,13 +5,13 @@ import { ProductType } from '@/types/type'
 import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React from 'react'
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Image, Pressable, Text, TouchableOpacity, View } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 
 const ProductItem = ({ product, index, apiPathPrefix }: { product: ProductType, index: number, apiPathPrefix: string }) => {
     const router = useRouter();
     return (
-            <TouchableOpacity
+            <Pressable
                 onPress={() => {
                     router.push({
                         pathname: '/product-details/[id]',
@@ -43,7 +43,7 @@ const ProductItem = ({ product, index, apiPathPrefix }: { product: ProductType, 
                         >${product.price}</Text>
                     </View>
                 </Animated.View>
-            </TouchableOpacity>
+            </Pressable>
     )
 }
 

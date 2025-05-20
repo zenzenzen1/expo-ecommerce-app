@@ -559,6 +559,42 @@
       "title": "Order Cancelled",
       "message": "Your order has been successfully cancelled.",
       "timestamp": "5 days ago"
+    },
+    {
+      "id": 5,
+      "title": "New Sale Alert",
+      "message": "Check out our latest sale on selected items!",
+      "timestamp": "1 week ago"
+    },
+    {
+      "id": 6,
+      "title": "New Product Launch",
+      "message": "We have launched new products in our store.",
+      "timestamp": "2 weeks ago"
+    },
+    {
+      "id": 7,
+      "title": "Feedback Request",
+      "message": "We would love to hear your feedback on your recent purchase.",
+      "timestamp": "3 weeks ago"
+    },
+    {
+      "id": 8,
+      "title": "New Feature Update",
+      "message": "We have added new features to enhance your shopping experience.",
+      "timestamp": "1 month ago"
+    },
+    {
+      "id": 9,
+      "title": "Account Verification",
+      "message": "Please verify your account to access all features.",
+      "timestamp": "1 month ago"
+    },
+    {
+      "id": 10,
+      "title": "Password Change",
+      "message": "Your password has been successfully changed.",
+      "timestamp": "2 months ago"
     }
   ]
 }

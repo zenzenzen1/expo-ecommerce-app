@@ -67,7 +67,7 @@ const HomeScreen = () => {
             <ScrollView>
 
 
-                <View style={{ backgroundColor: Colors.background, marginHorizontal: homeContentHorizontal }} className='mt-2 '>
+                <View style={{ backgroundColor: Colors.background, marginHorizontal: homeContentHorizontal }} className='mt-2'>
                     {categories && <FlatList
                         data={categories}
                         keyExtractor={(item) => item.id.toString()}

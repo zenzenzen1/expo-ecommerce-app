@@ -8,6 +8,7 @@ import { useHeaderHeight } from '@react-navigation/elements';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import Animated, { FadeInDown, SlideInDown } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 
@@ -19,7 +20,7 @@ const ProductDetails = () => {
     const router = useRouter();
     const insets = useSafeAreaInsets();
     const getProductDetails = async () => {
-        return httpClient.get(`${params.apiPathPrefix}/${params.id}`);
+        return httpClient.get(`${params.apiPathPrefix ?? "products"}/${params.id}`);
     }
     useEffect(() => {
         setLoading(true);
@@ -41,22 +42,22 @@ const ProductDetails = () => {
 
     return (
         <>
-            <View className='flex-1' style={{paddingTop: insets.top}}>
+            <View className='flex-1 pt-5' style={{}}>
                 {/* <ScreenHeader title='Product Details'/> */}
                 <Stack.Screen
                     options={{
                         header(props) {
                             return (
-                                <View style={ platform.isIos ? { paddingTop: insets.top} : {}} className='bg-white px-2 py-3'>
+                                <View style={platform.isIos ? { paddingTop: insets.top } : {}} className='bg-white px-2 py-3'>
                                     <View className='flex-row justify-between items-center px-3'>
                                         <TouchableOpacity
                                             onPress={() => {
-                                                router.replace("/(tabs)");
+                                                router.back();
                                             }}
                                         >
                                             <Ionicons name='arrow-back' size={22} color={"rgb(33, 150, 243)"} />
                                         </TouchableOpacity>
-                                        <Text className='text-3xl'>Product Detail</Text>
+                                        <Text className='text-3xl '>Product Detail</Text>
                                         <TouchableOpacity>
                                             <Ionicons name='cart-outline' size={24} />
                                         </TouchableOpacity>
@@ -89,29 +90,35 @@ const ProductDetails = () => {
                     : (
                         product &&
                         <>
-                            <View className='flex-1' >
+                            <View className='flex-1 ' >
                                 <ScrollView
                                     keyboardShouldPersistTaps="handled"
                                     className='flex-1'
                                 >
-                                    <ImageSlider imageList={product?.images} />
+                                    <Animated.View entering={FadeInDown.delay(300).duration(500)}>
+                                        <ImageSlider imageList={product?.images} />
+                                    </Animated.View>
                                     <View className='px-3'>
-                                        <View className='flex-row items-center justify-between py-3 px-1'>
-                                            <View className='flex-row items-center'>
-                                                <Ionicons name='star' size={22} color="#d4af37" />
-                                                <Text className='ml-1.5'>4.7</Text>
+                                        <Animated.View entering={FadeInDown.delay(500).duration(500)}>
+                                            <View className='flex-row items-center justify-between py-3 px-1'>
+                                                <View className='flex-row items-center'>
+                                                    <Ionicons name='star' size={22} color="#d4af37" />
+                                                    <Text className='ml-1.5'>4.7</Text>
+                                                </View>
+                                                <View>
+                                                    <TouchableOpacity>
+                                                        <Ionicons name='heart-outline' size={22} />
+                                                    </TouchableOpacity>
+                                                </View>
                                             </View>
-                                            <View>
-                                                <TouchableOpacity>
-                                                    <Ionicons name='heart-outline' size={22} />
-                                                </TouchableOpacity>
-                                            </View>
-                                        </View>
+                                        </Animated.View>
                                         {/* <Text>{product.title}</Text> */}
                                         <View>
-                                            <Text className='text-xl font-normal leading-6'>{product.title}</Text>
+                                            <Animated.Text entering={FadeInDown.delay(800).duration(500)}>
+                                                <Text className='text-xl font-normal leading-6'>{product.title}</Text>
+                                            </Animated.Text>
                                         </View>
-                                        <View className='flex-row items-center mt-1.5 gap-1'>
+                                        <View className='flex-row items-center mt-3 gap-1'>
                                             <Text className='text-2xl font-semibold'>${product.price}</Text>
                                             <View className='justify-center flex'>
                                                 <Text style={{ color: Colors.primary }}
@@ -120,7 +127,7 @@ const ProductDetails = () => {
                                             </View>
                                             <Text className='text-xl font-normal line-through'>${product.price - 2}</Text>
                                         </View>
-                                        <View className='mt-3 '>
+                                        <View className='mt-3.5'>
                                             <Text className='leading-6'>{product.description}</Text>
                                         </View>
                                         <View className='flex-row gap-2.5 mt-3'>
@@ -159,7 +166,8 @@ const ProductDetails = () => {
                                         </View>
                                     </View>
                                 </ScrollView>
-                                <View
+                                <Animated.View
+                                    entering={SlideInDown.delay(0).duration(1300)}
                                     style={{ paddingBottom: insets.bottom + (platform.isIos ? 10 : 0) }}
                                     className='bg-white flex-row items-center px-3 gap-4 pt-3 pb-3'
                                 >
@@ -177,7 +185,7 @@ const ProductDetails = () => {
                                     >
                                         <Text className='font-medium color-white'>Add To Cart</Text>
                                     </TouchableOpacity>
-                                </View>
+                                </Animated.View>
                             </View>
                         </>
 
