@@ -20,6 +20,7 @@ const NotificationsScreen = () => {
             })
             ;
     }, []);
+    
     return (
         <>
             <Stack.Screen options={{
@@ -30,16 +31,16 @@ const NotificationsScreen = () => {
                 ? (<View style={{}} className='flex-1 px-0'>
                     <FlatList data={notifications}
                         showsVerticalScrollIndicator={false}
-                        keyExtractor={(item) => item.id.toString()}
+                        keyExtractor={(item) => item._id.toString()}
                         renderItem={({ item, index }) => (
                             <Animated.View entering={FadeInDown.delay(300 + 100 * index).duration(500)} className={`flex-row border-b p-2.5 border-[rgba(0,0,0,0.15)] bg-white ${index === 0 ? 'mt-2' : ''}`} >
                                 <View className='justify-center items-center w-10'>
                                     <Ionicons name='notifications-outline' size={21}/>
                                 </View>
                                 <View>
-                                    <Text className='text-lg font-medium'>{item.title}</Text>
-                                    <Text className='text-base font-normal'>{item.message}</Text>
-                                    <Text className='text-base font-normal'>{item.timestamp}</Text>
+                                    <Text className='text-lg font-medium'>{item?.title}</Text>
+                                    <Text className='text-base font-normal'>{item?.message}</Text>
+                                    <Text className='text-base font-normal'>{item?.timestamp}</Text>
                                 </View>
                             </Animated.View>
                         )}

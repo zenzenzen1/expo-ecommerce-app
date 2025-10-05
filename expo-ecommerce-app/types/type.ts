@@ -28,6 +28,7 @@ export interface CartItemType {
 }
 
 export interface NotificationType {
+    _id: string;
   id: number;
   title: string;
   message: string;
